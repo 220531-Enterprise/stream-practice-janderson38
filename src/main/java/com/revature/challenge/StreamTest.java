@@ -54,6 +54,14 @@ public class StreamTest {
 
         
         // Code your Solution here
+        
+        System.out.println("===================== ANSWER TO #1 ======================");
+        
+        Optional<Student> possiblyBob = students.stream()
+        		.filter(s-> s.getName().equals("Bob"))
+        		.findFirst();
+        
+        System.out.println(possiblyBob.isPresent() ? possiblyBob.get().getName() : "No Student Found");
 
         
         
@@ -67,6 +75,15 @@ public class StreamTest {
 
         
         // Code your Solution here
+        
+        System.out.println("===================== ANSWER TO #2 ======================");
+        
+        Optional<Student> s1 = students.stream()
+        		.filter(s-> s.getAddress().getZipcode().equals("1235"))
+        		.findFirst();
+        
+        System.out.println(s1.isPresent() ? s1.get().getName() : "No Student Found");
+        
 
         
         
@@ -79,6 +96,21 @@ public class StreamTest {
 
         
         // Code your Solution here
+        
+        System.out.println("===================== ANSWER TO #3 ======================");
+        
+        List<Student> studentsWith3333 = students.stream()
+        		// make sure that only the students with the mobile number 3333 get stored here
+        		.filter(s -> s.getMobileNumbers() // .getMobileNUmbers returns a list!
+        				.stream() // below we're looking for a match of "3333" in the student's
+        						  // list of MobileNumbers
+        				.anyMatch(num -> num.getNumber().equals("3333")))
+        		
+        		.collect(Collectors.toList());
+        		
+        		
+        // call the forEach() method on the collection and print the name of each student
+        studentsWith3333.forEach(s -> System.out.println(s.getName()));
 
         
         
@@ -88,10 +120,25 @@ public class StreamTest {
          (4) Get all student having mobile number "1233" and "1234" and print their
              names to the console.
          ***************************************************************************/
-
+        System.out.println("===================== ANSWER TO #4 ======================");
         
         // Code your Solution here
+        List<Student> studentsWith1233And1234 = students.stream()
+        		// make sure that only the students with the mobile number 3333 get stored here
+        		.filter(s -> s.getMobileNumbers() // .getMobileNUmbers returns a list!
+        				.stream() // below we're looking for a match of "3333" in the student's
+        						  // list of MobileNumbers
+        				.anyMatch(num -> ((num.getNumber().equals("1233")) || (num.getNumber().equals("1234")))))
+        		
+        		.collect(Collectors.toList());
+        		
+        		
+        // call the forEach() method on the collection and print the name of each student
+        studentsWith1233And1234.forEach(s -> System.out.println(s.getName()));
         
+        
+        
+
         
         
         
@@ -116,7 +163,15 @@ public class StreamTest {
         List<TempStudent> tmpStudents = Arrays.asList(tmpStud1, tmpStud2);
         
         // Code your Solution here, don't touch the code above
- 
+        
+        System.out.println("===================== ANSWER TO #5 ======================");
+        
+		List<Student> studentList = tmpStudents.stream()
+				.map(tmpStudent -> new Student(tmpStudent.name, tmpStudent.age, tmpStudent.address, tmpStudent.mobileNumbers))// user Method Referencing
+				//What CLASS are you calling what METHOD from?
+				.collect(Collectors.toList());
+		
+		System.out.println(studentList);
 
         
         
@@ -130,8 +185,12 @@ public class StreamTest {
 
         
         // Code your Solution here
-
+		 System.out.println("===================== ANSWER TO #6 ======================");
+        List<String> studentNames = studentList.stream()
+        		.map(Student::getName)
+        		.collect(Collectors.toList());
         
+        System.out.println(studentNames);
         
         
         
@@ -142,6 +201,13 @@ public class StreamTest {
 
         
         // Code your Solution here
+		 System.out.println("===================== ANSWER TO #7 ======================");
+		 
+		 String name = studentList.stream()
+				 .map(Student::getName)
+				 .collect(Collectors.joining(","));
+		 
+		 System.out.println(name);
 
         
         
@@ -155,9 +221,15 @@ public class StreamTest {
             Arrays.asList("Bob", "Danny", "Alice", "Eddie", "Cathy");
  
         // Code your Solution here, don't touch the code above
+        
+        System.out.println("===================== ANSWER TO #8 ======================");
 
+		List<String> nameListUpperCase = nameList.stream()
+				.map(String::toUpperCase)// user Method Referencing
+				//What CLASS are you calling what METHOD from?
+				.collect(Collectors.toList());
         
-        
+		System.out.println(nameListUpperCase);
         
         
         /****************************************************************************
@@ -168,6 +240,15 @@ public class StreamTest {
             Arrays.asList("Bob", "Danny", "Alice", "Eddie", "Cathy");
  
         // Code your Solution here, don't touch the code above
+        
+        System.out.println("===================== ANSWER TO #9 ======================");
+        
+        List<String> nameListSorted = nameList.stream()
+        		.sorted()
+        		.collect(Collectors.toList());
+        
+        System.out.println(nameListSorted);
+        
 
 
         
